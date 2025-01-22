@@ -18,7 +18,7 @@ int main() {
         vect.push_back(current_val);
       }
       // vector is now ready for rotation
-      // we're going to calculate the offset and store the vector
+      // we're going to calculate the offset and store the rotated vector
       vector<int> placeholder = vect;
       if (direction == 'L') {
         for (size_t i = 0;i<vect.size();i++) {

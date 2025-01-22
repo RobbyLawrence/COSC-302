@@ -1,5 +1,7 @@
 // Challenge 01: Rotating Arrays; null solution
 // Name: Robby Lawrence
+// NetID: rlawren9
+// Student ID: 000691931
 // Description: accepts input of arrays, then performs rotations and outputs
 
 #include <iostream>

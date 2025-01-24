@@ -27,6 +27,7 @@ int main() {
           vect[(i + vect.size() - num_rotations) % vect.size()] = placeholder[i];
         }
       }
+      // in the case that we're given an 'R', we do a right rotation
       else if (direction == 'R') {
         for (size_t i = 0;i<vect.size();i++) {
           vect[(i + num_rotations) % vect.size()] = placeholder[i];

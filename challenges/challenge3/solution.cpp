@@ -1,54 +1,41 @@
 #include <iostream>
 #include <unordered_map>
-#include <vector>
+#include <cctype>
+#include <string>
+
 using namespace std;
 
-bool is_palindrome(string word) {
-  unordered_map<char,int> char_occur;
-  unordered_map<char,int>::iterator it;
-  // this creates a map that represents how many times each letter shows up in the word
-  for (size_t i = 0;i<word.length();i++) {
-    it = char_occur.find(word[i]);
-    if (it == char_occur.end()) {
-      char_occur.insert(make_pair(word[i],1));
+// Function to check if a string is a palindrome permutation
+bool is_palindrome(const string &word) {
+    unordered_map<char, int> char_count;
+
+    // Count the frequency of each character (ignoring non-alphabetic characters)
+    for (size_t i = 0;i<word.length()) {
+        if (isalpha(ch)) {
+            char_count[tolower(ch)]++;
+        }
     }
-    else {
-      it->second++;
+
+    // Check the number of characters with odd counts
+    int odd_count = 0;
+    for (const auto& pair : char_count) {
+        if (pair.second % 2 != 0) {
+            odd_count++;
+        }
     }
-  }
-  int num_bad_letters = 0;
-  if (word.length() % 2 == 0) {
-    for (unordered_map<char,int>::iterator it = char_occur.begin();it!=char_occur.end();it++) {
-      if (it->second % 2 == 1) {
-        return false;
-      }
-    }
-    return true;
-  }
-  else {
-    for (unordered_map<char,int>::iterator it = char_occur.begin();it!=char_occur.end();it++) {
-      if (it->second % 2 == 1) {
-        num_bad_letters++;
-      }
-      if (num_bad_letters > 1) {
-        return false;
-      }
-    }
-    return true;
-  }
+
+    // A string can be rearranged into a palindrome if at most one character has an odd count
+    return odd_count <= 1;
 }
+
 int main() {
-  string line;
-  vector<string> words;
-  while(getline(cin,line)) {
-    words.push_back(line);
-  }
-  for (size_t i = 0;i<words.size();i++) {
-    if (!is_palindrome(line)) {
-      cout << '"' << words[i] << '"' << " is a palindrome permutation" << '\n';
+    string phrase;
+    while (getline(cin, phrase)) {
+        if (is_palindrome(phrase)) {
+            cout << "\"" << phrase << "\" is a palindrome permutation" << endl;
+        } else {
+            cout << "\"" << phrase << "\" is not a palindrome permutation" << endl;
+        }
     }
-    else {
-      cout << '"' << words[i] << '"' << " is not a palindrome permutation" << '\n';
-    }
-  }
+    return 0;
 }

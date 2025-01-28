@@ -38,17 +38,17 @@ bool is_palindrome(string word) {
   }
 }
 int main() {
-  string word;
+  string line;
   vector<string> words;
-  while(cin >> word) {
-    words.push_back(word);
+  while(getline(cin,line)) {
+    words.push_back(line);
   }
-  for (string word : words) {
-    if (is_palindrome(word)) {
-      cout << '"' << word << '"' << " is a palindrome permutation";
+  for (size_t i = 0;i<words.size();i++) {
+    if (!is_palindrome(line)) {
+      cout << '"' << words[i] << '"' << " is a palindrome permutation" << '\n';
     }
     else {
-      cout << '"' << word << '"' << " is not a palindrome permutation";
+      cout << '"' << words[i] << '"' << " is not a palindrome permutation" << '\n';
     }
   }
 }

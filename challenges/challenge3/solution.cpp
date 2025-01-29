@@ -1,11 +1,15 @@
 #include <iostream>
 #include <unordered_map>
+#include <vector>
+#include <cctype>
 using namespace std;
 
 unordered_map<char,int> make_letter_map(string word) {
   unordered_map<char,int> map;
   for (size_t i = 0;i<word.length();i++) {
-    map[word[i]]++;
+    if (isalpha(word[i])) {
+      map[word[i]]++;
+    }
   }
   return map;
 }
@@ -38,14 +42,18 @@ bool is_palindrome_perm(string word) {
 }
 int main() {
   string word;
-  cout << "Enter your word: ";
-  cin >> word;
+  vector<string> words;
+  while (getline(cin,word)) {
+    words.push_back(word);
+  }
+  for (string word : words) {
   bool val = is_palindrome_perm(word);
   if (val) {
-    cout << word << " is a palindrome permutation." << '\n';
+    cout << '"' << word << '"' << " is a palindrome permutation" << '\n';
   }
   else {
-    cout << word << " is not a palindrome permutation." << '\n';
+    cout << '"' << word << '"' << " is not a palindrome permutation" << '\n';
+  }
   }
   return 0;
 }

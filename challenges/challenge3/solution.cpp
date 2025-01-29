@@ -1,41 +1,51 @@
 #include <iostream>
 #include <unordered_map>
-#include <cctype>
-#include <string>
-
 using namespace std;
 
-// Function to check if a string is a palindrome permutation
-bool is_palindrome(const string &word) {
-    unordered_map<char, int> char_count;
-
-    // Count the frequency of each character (ignoring non-alphabetic characters)
-    for (size_t i = 0;i<word.length()) {
-        if (isalpha(ch)) {
-            char_count[tolower(ch)]++;
-        }
-    }
-
-    // Check the number of characters with odd counts
-    int odd_count = 0;
-    for (const auto& pair : char_count) {
-        if (pair.second % 2 != 0) {
-            odd_count++;
-        }
-    }
-
-    // A string can be rearranged into a palindrome if at most one character has an odd count
-    return odd_count <= 1;
+unordered_map<char,int> make_letter_map(string word) {
+  unordered_map<char,int> map;
+  for (size_t i = 0;i<word.length();i++) {
+    map[word[i]]++;
+  }
+  return map;
 }
 
-int main() {
-    string phrase;
-    while (getline(cin, phrase)) {
-        if (is_palindrome(phrase)) {
-            cout << "\"" << phrase << "\" is a palindrome permutation" << endl;
-        } else {
-            cout << "\"" << phrase << "\" is not a palindrome permutation" << endl;
-        }
+bool is_palindrome_perm(string word) {
+  unordered_map<char,int> map = make_letter_map(word);
+  if (word.length() % 2 == 0) {
+    for (unordered_map<char,int>::iterator it = map.begin();it != map.end();it++) {
+      if (it->second % 2 != 0) {
+        return false;
+      }
     }
-    return 0;
+    return true;
+  }
+  else {
+    int num_bad_letters = 0;
+    for (unordered_map<char,int>::iterator it = map.begin();it != map.end();it++) {
+      if (it->second % 2 != 0) {
+        num_bad_letters++;
+      }
+      if (num_bad_letters > 1) {
+        return false;
+      }
+    }
+    if (num_bad_letters != 1) {
+      return false;
+    }
+    return true;
+  }
+}
+int main() {
+  string word;
+  cout << "Enter your word: ";
+  cin >> word;
+  bool val = is_palindrome_perm(word);
+  if (val) {
+    cout << word << " is a palindrome permutation." << '\n';
+  }
+  else {
+    cout << word << " is not a palindrome permutation." << '\n';
+  }
+  return 0;
 }

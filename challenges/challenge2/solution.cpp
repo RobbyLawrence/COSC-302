@@ -19,13 +19,13 @@ int main() {
       cin >> num;
       numbers.push_back(num);
     }
-    sort(numbers.begin(),numbers.end()); // sort
-    for (size_t i = 1;i<numbers.size();i++) { // compare elements next to each other
+    sort(numbers.begin(),numbers.end());
+    for (size_t i = 1;i<numbers.size();i++) { // sort and compare elements next to each other
       diff = abs(numbers[i] - numbers[i - 1]);
       if (diff < min_diff) {
         min_diff_pairs.clear(); // reset the vector and min_diff
         min_diff = diff;
-        min_diff_pairs.push_back(make_pair(numbers[i-1],numbers[i])); // add the new pair to the vector
+        min_diff_pairs.push_back(make_pair(numbers[i-1],numbers[i]));
       }
       else if (diff == min_diff) { // if the difference is the same as the current min_diff, add to vector
         min_diff_pairs.push_back(make_pair(numbers[i-1],numbers[i]));

@@ -1,3 +1,7 @@
+// Name: Robby Lawrence
+// Student ID: 000691931
+// NetID: rlawren9
+// Description: determines whether or not a string is a palindrome permutation
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -22,9 +26,8 @@ unordered_map<char, int> make_letter_map(string word) {
     return map;
 }
 
-// Function to check if the word is a palindrome permutation
 bool is_palindrome_perm(string word) {
-    word = clean(word); // Clean the word (remove spaces and non-alphabetic characters)
+    word = clean(word); // remove spaces and turn capital letters into lowercase versions
     unordered_map<char, int> map = make_letter_map(word);
 
     if (word.length() % 2 == 0) {

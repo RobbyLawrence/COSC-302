@@ -1,3 +1,8 @@
+// Name: Robby Lawrence
+// NetID: rlawren9
+// Student ID: 000691931
+// Description: This program takes graphs from stdin and outputs the
+// minimum spanning trees and their weights.
 #include <iostream>
 #include <queue>
 #include <vector>
@@ -31,7 +36,7 @@ vector<Edge> gen_mst(vector<vector<pair<int,int> > > &adjlist) {
         frontier.push(Edge(0, edge.first, edge.second));
     }
 
-    while (!frontier.empty() && mst.size() < n - 1) {
+    while (!frontier.empty() && (int)mst.size() < n - 1) {
         Edge edge = frontier.top();
         frontier.pop();
 
@@ -53,7 +58,7 @@ vector<Edge> gen_mst(vector<vector<pair<int,int> > > &adjlist) {
     }
 
     // Check if the MST includes all vertices
-    if (mst.size() != n - 1) {
+    if ((int)mst.size() != n - 1) {
         cerr << "Graph is not connected, cannot form a complete MST" << endl;
     }
 
@@ -62,7 +67,8 @@ vector<Edge> gen_mst(vector<vector<pair<int,int> > > &adjlist) {
 
 int main() {
     int num_vertices;
-    while (cin >> num_vertices) {
+    cin >> num_vertices;
+    while (true) {
         // import graph
         vector<vector<pair<int,int> > > adjlist(num_vertices);
         int weight;
@@ -79,8 +85,14 @@ int main() {
         }
 
         vector<Edge> mst = gen_mst(adjlist);
-        sort(mst.begin(), mst.end(), [](const Edge& a, const Edge& b) {
-                return a.vertex > b.vertex;
+        // lambda function with sort to make sure the edges are in the right order
+        sort(mst.begin(), mst.end(), [](Edge &a, Edge &b) {
+                if (min(a.from,a.vertex) == min(b.from,b.vertex)) {
+                    return a.vertex < b.vertex;
+                }
+                else {
+                    return min(a.from,a.vertex) < min(b.from,b.vertex);
+                }
         });
         int total_weight = 0;
         for (Edge &edge : mst) {
@@ -90,7 +102,13 @@ int main() {
         for (Edge &edge : mst) {
             cout << (char)(min(edge.from,edge.vertex) + 'A') << (char)(max(edge.from,edge.vertex) + 'A') << endl;
         }
-        cout << '\n';
+        if (cin >> num_vertices) {
+            cout << '\n';
+            continue;
+        }
+        else {
+            break;
+        }
     }
     return 0;
 }

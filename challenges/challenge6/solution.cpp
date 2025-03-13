@@ -4,14 +4,13 @@
 // Description: program reads in DNA strings and
 // outputs repeated substrings
 #include <iostream>
-#include <unordered_map>
-#include <algorithm>
+#include <map>
 #include <vector>
 using namespace std;
 
 int main(int argc, char *argv[]) {
     string dna;
-    unordered_map<string,int> substr_map;
+    map<string,int> substr_map; // chose to use map over unordered_map bc it would need to be sorted
     while (cin >> dna) {
         if (dna.length() < 9) {
             cout << -1 << '\n';
@@ -19,7 +18,7 @@ int main(int argc, char *argv[]) {
         }
         for (size_t i = 0;i <= dna.size() - 9;i++) {
             string substring = dna.substr(i,9);
-            unordered_map<string,int>::iterator it = substr_map.find(substring);
+            map<string,int>::iterator it = substr_map.find(substring);
             if (it == substr_map.end()) {
                 substr_map.insert(make_pair(substring,1)); // place substring in unordered map
             }
@@ -31,12 +30,8 @@ int main(int argc, char *argv[]) {
         vector<string> elements;
         for (pair<string,int> element : substr_map) {
             if (element.second > 1) {
-                elements.push_back(element.first);
+                cout << element.first << '\n';
             }
-        }
-        sort(elements.begin(),elements.end());
-        for (string str : elements) {
-            cout << str << '\n';
         }
         cout << -1 << '\n';
         substr_map.clear();

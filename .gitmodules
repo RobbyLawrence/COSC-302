@@ -16,3 +16,6 @@
 [submodule "projects/Volsweeper"]
 	path = projects/Volsweeper
 	url = git@github.com:RobbyLawrence/Volsweeper.git
+[submodule "projects/Project-4"]
+	path = projects/Project-4
+	url = git@github.com:RobbyLawrence/Project-4.git

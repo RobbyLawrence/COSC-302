@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 int main() {
@@ -11,7 +12,7 @@ int main() {
     int m = s1.size();
     int n = s2.size();
 
-    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+    vector<vector<int> > dp(m + 1, vector<int>(n + 1, 0));
 
     // Initialize first row
     for (int j = 0; j <= n; ++j) {

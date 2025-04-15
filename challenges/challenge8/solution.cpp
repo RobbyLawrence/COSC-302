@@ -1,3 +1,7 @@
+// Name: Robby Lawrence
+// NetID: rlawren9
+// Student ID: 000691931
+// Description: Creates a Needleman-Wunsch table and outputs bottom right entry
 #include <iostream>
 #include <vector>
 #include <string>
@@ -5,36 +9,38 @@
 using namespace std;
 
 int main() {
-    string s1, s2;
-    getline(cin, s1);
-    getline(cin, s2);
+    string s_1, s_2;
+    cin >> s_1;
+    cin >> s_2;
+    int m = s_1.size();
+    int n = s_2.size();
+    vector<vector<int> > vect(m + 1, vector<int>(n + 1, 0));
 
-    int m = s1.size();
-    int n = s2.size();
-
-    vector<vector<int> > dp(m + 1, vector<int>(n + 1, 0));
-
-    // Initialize first row
-    for (int j = 0; j <= n; ++j) {
-        dp[0][j] = -j;
+    // initialize first row
+    for (int i = 0; i <= n; i++) {
+        vect[0][i] = -i;
     }
-
-    // Initialize first column
-    for (int i = 0; i <= m; ++i) {
-        dp[i][0] = -i;
+    // initialize first column
+    for (int i = 0; i <= m; i++) {
+        vect[i][0] = -i;
     }
-
-    // Fill the DP table
-    for (int i = 1; i <= m; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            int match = dp[i-1][j-1] + (s1[i-1] == s2[j-1] ? 1 : -1);
-            int del = dp[i-1][j] - 1;
-            int ins = dp[i][j-1] - 1;
-            dp[i][j] = max({match, del, ins});
+    // load vector
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            int match = vect[i][j];
+            if (s_1[i] == s_2[j]) {
+                match += 1;
+            }
+            else {
+                match -= 1;
+            }
+            int del = vect[i][j+1] - 1;
+            int ins = vect[i+1][j] - 1;
+            vect[i+1][j+1] = max({match, del, ins});
         }
     }
-
-    cout << dp[m][n] << endl;
+    // output the bottom right entry
+    cout << vect[m][n] << endl;
 
     return 0;
 }

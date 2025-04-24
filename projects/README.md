@@ -1,0 +1,1 @@
+To anyone trying to access any of the content of these projects, please reach out to me at rlawren9@vols.utk.edu. I've kept them private so as to not give the solutions to future students taking this course.
